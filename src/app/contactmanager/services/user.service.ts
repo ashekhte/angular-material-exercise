@@ -8,6 +8,10 @@ import { User } from '../models/user';
 })
 export class UserService {
 
+  addUser(user: User) : Promise<User> {
+    throw new Error('Method not implemented.');
+  }
+
   private _users: BehaviorSubject<User[]>;
 
   private dataStore: {
