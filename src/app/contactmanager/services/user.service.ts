@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { ThrowStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
@@ -9,7 +10,12 @@ import { User } from '../models/user';
 export class UserService {
 
   addUser(user: User) : Promise<User> {
-    throw new Error('Method not implemented.');
+    return new Promise((resolve, reject) => {
+      user.id = this.dataStore.users.length + 1;
+      this.dataStore.users.push(user);
+      this._users.next(Object.assign({}, this.dataStore).users);
+      resolve(user);
+    })
   }
 
   private _users: BehaviorSubject<User[]>;
